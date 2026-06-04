@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 World Cup Form Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 2rem;
+            border-bottom: 0.5px solid #e5e7eb;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn:hover {
+            color: #1f2937;
+        }
+        
+        .tab-btn.active {
+            color: #1f2937;
+            border-bottom-color: #3b82f6;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            border: 0.5px solid #e5e7eb;
+            font-size: 13px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        .win-color { background-color: #10b981; }
+        .draw-color { background-color: #f59e0b; }
+        .loss-color { background-color: #ef4444; }
+        .competitive-color { background-color: #fed7aa; }
+        .friendly-color { background-color: #e5e7eb; }
+        
+        .filter-section {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: 0.5px solid #d1d5db;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn:hover {
+            border-color: #9ca3af;
+            background: #f3f4f6;
+        }
+        
+        .filter-btn.active {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+        
+        .team-card {
+            background: #fff;
+            border: 0.5px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-header {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .form-badge {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+        
+        .form-excellent {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .form-good {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .form-mixed {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .form-poor {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
+            margin-top: 1rem;
+        }
+        
+        .match-item {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-left: 5px solid #ccc;
+            border-radius: 8px;
+            background: #f9fafb;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .match-date {
+            color: #6b7280;
+            font-size: 11px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .match-score {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+        
+        .match-opponent {
+            color: #6b7280;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+        
+        .match-type {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .competitive {
+            background: #fed7aa;
+            color: #7c2d12;
+        }
+        
+        .friendly {
+            background: #e5e7eb;
+            color: #374151;
+        }
+        
+        .win {
+            border-left-color: #10b981;
+            border-color: #10b981;
+        }
+        
+        .win .match-score {
+            color: #059669;
+        }
+        
+        .draw {
+            border-left-color: #f59e0b;
+            border-color: #f59e0b;
+        }
+        
+        .draw .match-score {
+            color: #d97706;
+        }
+        
+        .loss {
+            border-left-color: #ef4444;
+            border-color: #ef4444;
+        }
+        
+        .loss .match-score {
+            color: #dc2626;
+        }
+        
+        /* Tournament Index Styles */
+        .index-selector {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .index-select-btn {
+            padding: 10px 20px;
+            border: 0.5px solid #d1d5db;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .index-select-btn:hover {
+            border-color: #9ca3af;
+            background: #f3f4f6;
+        }
+        
+        .index-select-btn.selected {
+            background: #3b82f6;
+            color: #fff;
+            border-color: #3b82f6;
+        }
+        
+        .comparison-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .nation-index-card {
+            background: #fff;
+            border: 0.5px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .nation-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+        
+        .index-score {
+            font-size: 32px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tournament-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .tournament-item {
+            padding: 10px;
+            background: #f9fafb;
+            border-radius: 6px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tournament-year {
+            font-weight: 500;
+            color: #1f2937;
+        }
+        
+        .tournament-placement {
+            color: #6b7280;
+            font-size: 11px;
+        }
+        
+        .tournament-points {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2026 FIFA World Cup Form Guide</h1>
+        <p class="subtitle">Complete analysis of all 8 nations' recent form and tournament history</p>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('recent-form')">Recent Form</button>
+            <button class="tab-btn" onclick="switchTab('tournament-index')">Tournament Index</button>
+        </div>
+        
+        <!-- RECENT FORM TAB -->
+        <div id="recent-form" class="tab-content active">
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box win-color"></div>
+                    <span>Win</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box draw-color"></div>
+                    <span>Draw</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box loss-color"></div>
+                    <span>Loss</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box competitive-color"></div>
+                    <span>Competitive Match</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box friendly-color"></div>
+                    <span>Friendly</span>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <button class="filter-btn active" onclick="filterNation('all', event)">All teams</button>
+                <button class="filter-btn" onclick="filterNation('Germany', event)">Germany</button>
+                <button class="filter-btn" onclick="filterNation('Spain', event)">Spain</button>
+                <button class="filter-btn" onclick="filterNation('Argentina', event)">Argentina</button>
+                <button class="filter-btn" onclick="filterNation('Brazil', event)">Brazil</button>
+                <button class="filter-btn" onclick="filterNation('England', event)">England</button>
+                <button class="filter-btn" onclick="filterNation('Portugal', event)">Portugal</button>
+                <button class="filter-btn" onclick="filterNation('France', event)">France</button>
+                <button class="filter-btn" onclick="filterNation('Netherlands', event)">Netherlands</button>
+            </div>
+            
+            <div id="teamsContainer"></div>
+        </div>
+        
+        <!-- TOURNAMENT INDEX TAB -->
+        <div id="tournament-index" class="tab-content">
+            <div class="index-selector" id="indexSelector"></div>
+            <div class="comparison-cards" id="comparisonCards"></div>
+        </div>
+    </div>
+
+    <script>
+        const matchData = {
+            Germany: {
+                form: 'excellent',
+                description: '5 of last 5 wins',
+                matches: [
+                    { date: '17 Nov 2025', result: 'W', score: '6-0', opponent: 'Slovakia', type: 'WC Qual UEFA' },
+                    { date: '14 Nov 2025', result: 'W', score: '2-0', opponent: 'Luxembourg', type: 'WC Qual UEFA' },
+                    { date: '13 Oct 2025', result: 'W', score: '1-0', opponent: 'Northern Ireland', type: 'WC Qual UEFA' },
+                    { date: '10 Oct 2025', result: 'W', score: '4-0', opponent: 'Luxembourg', type: 'WC Qual UEFA' },
+                    { date: '7 Sep 2025', result: 'W', score: '3-1', opponent: 'Northern Ireland', type: 'WC Qual UEFA' },
+                    { date: '27 Mar 2026', result: 'W', score: '4-3', opponent: 'Switzerland', type: 'Friendly' },
+                    { date: '30 Mar 2026', result: 'W', score: '3-1', opponent: 'Ivory Coast', type: 'Friendly' },
+                    { date: '30 Mar 2026', result: 'W', score: '2-0', opponent: 'Ghana', type: 'Friendly' },
+                    { date: '31 May 2026', result: 'W', score: '4-0', opponent: 'Finland', type: 'Friendly' },
+                    { date: '6 Jun 2026', result: 'W', score: '3-1', opponent: 'USA', type: 'Friendly' },
+                ]
+            },
+            Spain: {
+                form: 'good',
+                description: '8 wins, 3 draws in recent matches',
+                matches: [
+                    { date: '18 Nov 2025', result: 'D', score: '2-2', opponent: 'Turkey', type: 'WC Qual UEFA' },
+                    { date: '15 Nov 2025', result: 'W', score: '4-0', opponent: 'Georgia', type: 'WC Qual UEFA' },
+                    { date: '14 Oct 2025', result: 'W', score: '4-0', opponent: 'Bulgaria', type: 'WC Qual UEFA' },
+                    { date: '11 Oct 2025', result: 'W', score: '2-0', opponent: 'Georgia', type: 'WC Qual UEFA' },
+                    { date: '7 Sep 2025', result: 'W', score: '6-0', opponent: 'Turkey', type: 'WC Qual UEFA' },
+                    { date: '4 Sep 2025', result: 'W', score: '3-0', opponent: 'Bulgaria', type: 'WC Qual UEFA' },
+                    { date: '8 Jun 2025', result: 'W', score: '2-2 (5-3 pen)', opponent: 'Portugal', type: 'Nations League Final' },
+                    { date: '5 Jun 2025', result: 'W', score: '5-4', opponent: 'France', type: 'Friendly' },
+                    { date: '23 Mar 2025', result: 'D', score: '3-3 (5-4 pen)', opponent: 'Netherlands', type: 'Nations League' },
+                    { date: '20 Mar 2025', result: 'D', score: '2-2', opponent: 'Netherlands', type: 'Nations League' },
+                ]
+            },
+            Argentina: {
+                form: 'mixed',
+                description: '8 wins, 2 draws, 2 losses in CONMEBOL',
+                matches: [
+                    { date: '15 Nov 2025', result: 'W', score: '2-0', opponent: 'Angola', type: 'Friendly' },
+                    { date: '15 Oct 2025', result: 'W', score: '6-0', opponent: 'Puerto Rico', type: 'Friendly' },
+                    { date: '11 Oct 2025', result: 'W', score: '1-0', opponent: 'Venezuela', type: 'CONMEBOL' },
+                    { date: '10 Sep 2025', result: 'L', score: '1-0', opponent: 'Ecuador', type: 'CONMEBOL' },
+                    { date: '5 Sep 2025', result: 'W', score: '3-0', opponent: 'Venezuela', type: 'CONMEBOL' },
+                    { date: '11 Jun 2025', result: 'D', score: '1-1', opponent: 'Colombia', type: 'CONMEBOL' },
+                    { date: '6 Jun 2025', result: 'W', score: '1-0', opponent: 'Chile', type: 'CONMEBOL' },
+                    { date: '26 Mar 2025', result: 'W', score: '4-1', opponent: 'Brazil', type: 'CONMEBOL' },
+                    { date: '22 Mar 2025', result: 'W', score: '1-0', opponent: 'Uruguay', type: 'CONMEBOL' },
+                    { date: '20 Nov 2024', result: 'W', score: '1-0', opponent: 'Peru', type: 'CONMEBOL' },
+                ]
+            },
+            Brazil: {
+                form: 'mixed',
+                description: '2 of 5 recent wins (40% win rate)',
+                matches: [
+                    { date: '18 Nov 2025', result: 'D', score: '1-1', opponent: 'Tunisia', type: 'Friendly' },
+                    { date: '15 Nov 2025', result: 'W', score: '2-0', opponent: 'Senegal', type: 'Friendly' },
+                    { date: '14 Oct 2025', result: 'L', score: '2-3', opponent: 'Japan', type: 'Friendly' },
+                    { date: '10 Oct 2025', result: 'W', score: '5-0', opponent: 'South Korea', type: 'Friendly' },
+                    { date: '9 Sep 2025', result: 'L', score: '0-1', opponent: 'Bolivia', type: 'CONMEBOL' },
+                    { date: '9 Sep 2025', result: 'W', score: '3-0', opponent: 'Chile', type: 'CONMEBOL' },
+                    { date: '10 Jun 2025', result: 'W', score: '1-0', opponent: 'Paraguay', type: 'CONMEBOL' },
+                    { date: '5 Jun 2025', result: 'D', score: '0-0', opponent: 'Ecuador', type: 'CONMEBOL' },
+                    { date: '20 Mar 2025', result: 'W', score: '2-1', opponent: 'Colombia', type: 'CONMEBOL' },
+                    { date: '25 Mar 2025', result: 'L', score: '1-4', opponent: 'Argentina', type: 'CONMEBOL' },
+                ]
+            },
+            England: {
+                form: 'good',
+                description: 'Unbeaten run, strong qualification form',
+                matches: [
+                    { date: '5 Jun 2026', result: 'W', score: '2-1', opponent: 'Japan', type: 'Friendly' },
+                    { date: '21 Mar 2025', result: 'W', score: '2-0', opponent: 'Albania', type: 'WC Qual UEFA' },
+                    { date: '24 Mar 2025', result: 'W', score: '3-0', opponent: 'Latvia', type: 'WC Qual UEFA' },
+                    { date: '17 Nov 2024', result: 'W', score: '5-0', opponent: 'Ireland', type: 'Nations League' },
+                    { date: '14 Nov 2024', result: 'W', score: '3-0', opponent: 'Greece', type: 'Nations League' },
+                    { date: '13 Oct 2024', result: 'W', score: '3-1', opponent: 'Finland', type: 'Nations League' },
+                    { date: '10 Oct 2024', result: 'L', score: '1-2', opponent: 'Greece', type: 'Nations League' },
+                    { date: '10 Sep 2024', result: 'W', score: '2-0', opponent: 'Finland', type: 'Nations League' },
+                    { date: '7 Sep 2024', result: 'W', score: '2-0', opponent: 'Ireland', type: 'Nations League' },
+                    { date: '14 Jul 2024', result: 'L', score: '1-2', opponent: 'Spain', type: 'Euro Finals' },
+                ]
+            },
+            Portugal: {
+                form: 'good',
+                description: '3 of 5 recent wins (60% win rate)',
+                matches: [
+                    { date: '16 Nov 2025', result: 'W', score: '9-1', opponent: 'Armenia', type: 'WC Qual UEFA' },
+                    { date: '13 Nov 2025', result: 'L', score: '0-2', opponent: 'Ireland', type: 'WC Qual UEFA' },
+                    { date: '14 Oct 2025', result: 'D', score: '2-2', opponent: 'Hungary', type: 'WC Qual UEFA' },
+                    { date: '11 Oct 2025', result: 'W', score: '1-0', opponent: 'Ireland', type: 'WC Qual UEFA' },
+                    { date: '9 Sep 2025', result: 'W', score: '3-2', opponent: 'Hungary', type: 'WC Qual UEFA' },
+                    { date: '6 Sep 2025', result: 'W', score: '5-0', opponent: 'Armenia', type: 'WC Qual UEFA' },
+                    { date: '29 Mar 2026', result: 'W', score: '3-2', opponent: 'Mexico', type: 'Friendly' },
+                    { date: '31 Mar 2026', result: 'W', score: '2-1', opponent: 'USA', type: 'Friendly' },
+                    { date: '5 Jul 2024', result: 'L', score: '0-0 (3-5 pen)', opponent: 'France', type: 'Euro Finals' },
+                    { date: '1 Jul 2024', result: 'W', score: '3-0', opponent: 'Slovenia', type: 'Euro Finals' },
+                ]
+            },
+            France: {
+                form: 'mixed',
+                description: 'Uneven WC qualification form, recent loss to Azerbaijan',
+                matches: [
+                    { date: '16 Nov 2025', result: 'L', score: '1-3', opponent: 'Azerbaijan', type: 'WC Qual UEFA' },
+                    { date: '13 Nov 2025', result: 'D', score: '0-0', opponent: 'Israel', type: 'WC Qual UEFA' },
+                    { date: '13 Oct 2025', result: 'D', score: '2-2', opponent: 'Iceland', type: 'WC Qual UEFA' },
+                    { date: '10 Oct 2025', result: 'W', score: '3-0', opponent: 'Azerbaijan', type: 'WC Qual UEFA' },
+                    { date: '9 Sep 2025', result: 'W', score: '2-1', opponent: 'Iceland', type: 'WC Qual UEFA' },
+                    { date: '5 Sep 2025', result: 'W', score: '2-0', opponent: 'Ukraine', type: 'WC Qual UEFA' },
+                    { date: '29 Mar 2026', result: 'W', score: '3-1', opponent: 'Colombia', type: 'Friendly' },
+                    { date: '9 Jul 2024', result: 'L', score: '1-2', opponent: 'Spain', type: 'Euro Finals' },
+                    { date: '5 Jul 2024', result: 'W', score: '3-5', opponent: 'Portugal', type: 'Euro Finals' },
+                    { date: '1 Jul 2024', result: 'W', score: '1-0', opponent: 'Belgium', type: 'Euro Finals' },
+                ]
+            },
+            Netherlands: {
+                form: 'excellent',
+                description: '4 of 5 recent wins (80% win rate)',
+                matches: [
+                    { date: '17 Nov 2025', result: 'W', score: '4-0', opponent: 'Lithuania', type: 'WC Qual UEFA' },
+                    { date: '14 Nov 2025', result: 'D', score: '1-1', opponent: 'Poland', type: 'WC Qual UEFA' },
+                    { date: '12 Oct 2025', result: 'W', score: '4-0', opponent: 'Finland', type: 'WC Qual UEFA' },
+                    { date: '9 Oct 2025', result: 'W', score: '4-0', opponent: 'Malta', type: 'WC Qual UEFA' },
+                    { date: '7 Sep 2025', result: 'W', score: '3-2', opponent: 'Lithuania', type: 'WC Qual UEFA' },
+                    { date: '4 Sep 2025', result: 'D', score: '1-1', opponent: 'Poland', type: 'WC Qual UEFA' },
+                    { date: '10 Jul 2024', result: 'L', score: '1-2', opponent: 'England', type: 'Euro Finals' },
+                    { date: '6 Jul 2024', result: 'W', score: '2-1', opponent: 'Turkey', type: 'Euro Finals' },
+                    { date: '2 Jul 2024', result: 'W', score: '3-0', opponent: 'Romania', type: 'Euro Finals' },
+                    { date: '31 Mar 2026', result: 'W', score: '2-1', opponent: 'Ecuador', type: 'Friendly' },
+                ]
+            }
+        };
+
+        const tournamentHistory = {
+            Germany: {
+                tournaments: [
+                    { year: '2024 Euro', placement: 'Quarter-final', points: 4, weight: 1.5 },
+                    { year: '2022 World Cup', placement: 'Round of 16', points: 2, weight: 1.3 },
+                    { year: '2020 Euro', placement: 'Round of 16', points: 2, weight: 1.1 },
+                    { year: '2018 World Cup', placement: 'Group Stage', points: 0, weight: 1.0 },
+                    { year: '2016 Euro', placement: 'Semi-final', points: 6, weight: 1.0 },
+                    { year: '2014 World Cup', placement: 'Champion', points: 10, weight: 1.0 }
+                ]
+            },
+            Spain: {
+                tournaments: [
+                    { year: '2024 Euro', placement: 'Champion', points: 10, weight: 1.5 },
+                    { year: '2022 World Cup', placement: 'Round of 16', points: 2, weight: 1.3 },
+                    { year: '2020 Euro', placement: 'Semi-final', points: 6, weight: 1.1 },
+                    { year: '2018 World Cup', placement: 'Round of 16', points: 2, weight: 1.0 },
+                    { year: '2016 Euro', placement: 'Round of 16', points: 2, weight: 1.0 },
+                    { year: '2014 World Cup', placement: 'Round of 16', points: 2, weight: 1.0 }
+                ]
+            },
+            Argentina: {
+                tournaments: [
+                    { year: '2022 World Cup', placement: 'Champion', points: 10, weight: 1.5 },
+                    { year: '2021 Copa America', placement: 'Champion', points: 10, weight: 1.3 },
+                    { year: '2020 Copa America', placement: 'Semi-final', points: 6, weight: 1.1 },
+                    { year: '2018 World Cup', placement: 'Round of 16', points: 2, weight: 1.0 },
+                    { year: '2016 Copa America', placement: 'Final', points: 8, weight: 1.0 },
+                    { year: '2014 World Cup', placement: 'Final', points: 8, weight: 1.0 }
+                ]
+            },
+            Brazil: {
+                tournaments: [
+                    { year: '2022 World Cup', placement: 'Quarter-final', points: 4, weight: 1.5 },
+                    { year: '2021 Copa America', placement: 'Final', points: 8, weight: 1.3 },
+                    { year: '2020 Copa America', placement: 'Semi-final', points: 6, weight: 1.1 },
+                    { year: '2018 World Cup', placement: 'Quarter-final', points: 4, weight: 1.0 },
+                    { year: '2016 Copa America', placement: 'Semi-final', points: 6, weight: 1.0 },
+                    { year: '2014 World Cup', placement: 'Semi-final', points: 6, weight: 1.0 }
+                ]
+            },
+            England: {
+                tournaments: [
+                    { year: '2024 Euro', placement: 'Final', points: 8, weight: 1.5 },
+                    { year: '2022 World Cup', placement: 'Quarter-final', points: 4, weight: 1.3 },
+                    { year: '2020 Euro', placement: 'Final', points: 8, weight: 1.1 },
+                    { year: '2018 World Cup', placement: 'Semi-final', points: 6, weight: 1.0 },
+                    { year: '2016 Euro', placement: 'Round of 16', points: 2, weight: 1.0 },
+                    { year: '2014 World Cup', placement: 'Group Stage', points: 0, weight: 1.0 }
+                ]
+            },
+            Portugal: {
+                tournaments: [
+                    { year: '2024 Euro', placement: 'Semi-final', points: 6, weight: 1.5 },
+                    { year: '2022 World Cup', placement: 'Round of 16', points: 2, weight: 1.3 },
+                    { year: '2020 Euro', placement: 'Round of 16', points: 2, weight: 1.1 },
+                    { year: '2018 World Cup', placement: 'Round of 16', points: 2, weight: 1.0 },
+                    { year: '2016 Euro', placement: 'Semi-final', points: 6, weight: 1.0 },
+                    { year: '2014 World Cup', placement: 'Group Stage', points: 0, weight: 1.0 }
+                ]
+            },
+            France: {
+                tournaments: [
+                    { year: '2022 World Cup', placement: 'Final', points: 8, weight: 1.5 },
+                    { year: '2021 Euro', placement: 'Semi-final', points: 6, weight: 1.3 },
+                    { year: '2018 World Cup', placement: 'Champion', points: 10, weight: 1.1 },
+                    { year: '2016 Euro', placement: 'Final', points: 8, weight: 1.0 },
+                    { year: '2014 World Cup', placement: 'Quarter-final', points: 4, weight: 1.0 },
+                    { year: '2012 Euro', placement: 'Quarter-final', points: 4, weight: 1.0 }
+                ]
+            },
+            Netherlands: {
+                tournaments: [
+                    { year: '2024 Euro', placement: 'Semi-final', points: 6, weight: 1.5 },
+                    { year: '2022 World Cup', placement: 'Round of 16', points: 2, weight: 1.3 },
+                    { year: '2020 Euro', placement: 'Semi-final', points: 6, weight: 1.1 },
+                    { year: '2018 World Cup', placement: 'Round of 16', points: 2, weight: 1.0 },
+                    { year: '2016 Euro', placement: 'Semi-final', points: 6, weight: 1.0 },
+                    { year: '2014 World Cup', placement: 'Semi-final', points: 6, weight: 1.0 }
+                ]
+            }
+        };
+
+        function calculateWeightedIndex(nation) {
+            const tournaments = tournamentHistory[nation].tournaments;
+            let totalWeightedPoints = 0;
+            let totalWeight = 0;
+            
+            tournaments.forEach(t => {
+                totalWeightedPoints += t.points * t.weight;
+                totalWeight += t.weight;
+            });
+            
+            return Math.round((totalWeightedPoints / totalWeight) * 10) / 10;
+        }
+
+        function getCompetitiveStatus(type) {
+            const competitiveTypes = ['WC Qual', 'CONMEBOL', 'Nations League', 'Euro', 'Finals'];
+            return competitiveTypes.some(ct => type.includes(ct));
+        }
+
+        function renderTeam(nation) {
+            const data = matchData[nation];
+            const formBadgeClass = `form-badge form-${data.form}`;
+            
+            let html = `
+                <div class="team-card" data-nation="${nation}">
+                    <div class="team-header">
+                        <span>${nation}</span>
+                        <span class="${formBadgeClass}">${data.description}</span>
+                    </div>
+                    <div class="matches-grid">
+            `;
+            
+            data.matches.forEach(match => {
+                const isCompetitive = getCompetitiveStatus(match.type);
+                const resultClass = match.result === 'W' ? 'win' : match.result === 'D' ? 'draw' : 'loss';
+                const typeClass = isCompetitive ? 'competitive' : 'friendly';
+                
+                html += `
+                    <div class="match-item ${resultClass}">
+                        <div class="match-date">${match.date}</div>
+                        <div class="match-score">${match.score}</div>
+                        <div class="match-opponent">vs ${match.opponent}</div>
+                        <div class="match-type ${typeClass}">${match.type}</div>
+                    </div>
+                `;
+            });
+            
+            html += `</div></div>`;
+            return html;
+        }
+
+        function filterNation(nation, event) {
+            const container = document.getElementById('teamsContainer');
+            container.innerHTML = '';
+            
+            if (nation === 'all') {
+                Object.keys(matchData).forEach(n => {
+                    container.innerHTML += renderTeam(n);
+                });
+            } else {
+                container.innerHTML = renderTeam(nation);
+            }
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (tabName === 'tournament-index') {
+                initIndexTab();
+            }
+        }
+
+        function initIndexTab() {
+            const selector = document.getElementById('indexSelector');
+            selector.innerHTML = '';
+            
+            Object.keys(tournamentHistory).forEach(nation => {
+                const btn = document.createElement('button');
+                btn.className = 'index-select-btn';
+                btn.textContent = nation;
+                btn.onclick = () => selectNations(nation, btn);
+                selector.appendChild(btn);
+            });
+            
+            const compareAllBtn = document.createElement('button');
+            compareAllBtn.className = 'index-select-btn';
+            compareAllBtn.textContent = 'Compare All';
+            compareAllBtn.onclick = () => selectNations('all', compareAllBtn);
+            selector.appendChild(compareAllBtn);
+        }
+
+        function selectNations(selection, btn) {
+            document.querySelectorAll('.index-select-btn').forEach(b => {
+                b.classList.remove('selected');
+            });
+            btn.classList.add('selected');
+            
+            const cardsContainer = document.getElementById('comparisonCards');
+            cardsContainer.innerHTML = '';
+            
+            if (selection === 'all') {
+                const nations = Object.keys(tournamentHistory).sort((a, b) => calculateWeightedIndex(b) - calculateWeightedIndex(a));
+                nations.forEach(nation => {
+                    cardsContainer.innerHTML += createIndexCard(nation);
+                });
+            } else {
+                cardsContainer.innerHTML = createIndexCard(selection);
+            }
+        }
+
+        function createIndexCard(nation) {
+            const index = calculateWeightedIndex(nation);
+            const tournaments = tournamentHistory[nation].tournaments;
+            
+            let tournamentsHtml = '';
+            tournaments.forEach(t => {
+                tournamentsHtml += `
+                    <div class="tournament-item">
+                        <div>
+                            <div class="tournament-year">${t.year}</div>
+                            <div class="tournament-placement">${t.placement}</div>
+                        </div>
+                        <div class="tournament-points">${(t.points * t.weight).toFixed(1)} pts</div>
+                    </div>
+                `;
+            });
+            
+            return `
+                <div class="nation-index-card">
+                    <div class="nation-name">${nation}</div>
+                    <div class="index-score">${index.toFixed(1)}</div>
+                    <div class="score-label">Weighted Tournament Index</div>
+                    <div class="tournament-list">
+                        ${tournamentsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        filterNation('all', { target: document.querySelector('.filter-btn') });
+    </script>
+</body>
+</html>
